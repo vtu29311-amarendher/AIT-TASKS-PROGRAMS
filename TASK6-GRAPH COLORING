@@ -46,3 +46,16 @@ for vertex, color in result.items():
     print(vertex, "->", color)
 
 print("Minimum Colors Used:", len(set(result.values())))
+
+
+
+
+#OUTPUT
+Color Assignment:
+A -> R
+B -> G
+C -> B
+D -> O
+E -> R
+Minimum Colors Used: 4
+
