@@ -1,0 +1,89 @@
+# Monkey Banana Problem
+
+# Initial State
+initial_state = {
+    'on_floor(Monkey)',
+    'at(Monkey, Window)',
+    'at(Box, Window)'
+}
+
+# Goal
+goal = 'has(Monkey, Banana)'
+
+# Plan
+plan = [
+    'Push(Box, Window, Center)',
+    'Climb(Box)',
+    'Grasp(Banana)'
+]
+
+# Copy initial state
+state = initial_state.copy()
+
+print("Initial State:")
+for item in state:
+    print(item)
+
+print("\nPlan:")
+
+# Execute the plan
+for step in plan:
+
+    print(step)
+
+    # Push Box from Window to Center
+    if step == 'Push(Box, Window, Center)':
+
+        if ('on_floor(Monkey)' in state and
+            'at(Monkey, Window)' in state and
+            'at(Box, Window)' in state):
+
+            state.remove('at(Monkey, Window)')
+            state.remove('at(Box, Window)')
+
+            state.add('at(Monkey, Center)')
+            state.add('at(Box, Center)')
+
+        else:
+            print("Cannot push the box.")
+            break
+
+    # Climb the Box
+    elif step == 'Climb(Box)':
+
+        if ('on_floor(Monkey)' in state and
+            'at(Monkey, Center)' in state and
+            'at(Box, Center)' in state):
+
+            state.remove('on_floor(Monkey)')
+            state.add('on_box(Monkey)')
+
+        else:
+            print("Monkey cannot climb the box.")
+            break
+
+    # Grasp the Banana
+    elif step == 'Grasp(Banana)':
+
+        if ('on_box(Monkey)' in state and
+            'at(Monkey, Center)' in state and
+            'at(Box, Center)' in state):
+
+            state.add('has(Monkey, Banana)')
+
+        else:
+            print("Monkey cannot reach the banana.")
+            break
+
+
+# Display Final State
+print("\nFinal State:")
+for item in state:
+    print(item)
+
+
+# Check whether goal is achieved
+if goal in state:
+    print("\nGoal Achieved: Monkey has the Banana")
+else:
+    print("\nGoal Not Achieved: Monkey did not get the Banana")
